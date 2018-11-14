@@ -7,17 +7,12 @@ Func Example()
     ; Create a GUI with various controls.
     Local $hGUI = GUICreate("Example", 300, 200)
 
-    ; Create a combobox control.
-    Local $idComboBox = GUICtrlCreateCombo("Item 1", 10, 10, 185, 20)
+    ; Create a checkbox control.
+    Local $idCheckbox = GUICtrlCreateCheckbox("Standard Checkbox", 10, 10, 185, 25)
     Local $idButton_Close = GUICtrlCreateButton("Close", 210, 170, 85, 25)
-
-    ; Add additional items to the combobox.
-    GUICtrlSetData($idComboBox, "Item 2|Item 3", "Item 2")
 
     ; Display the GUI.
     GUISetState(@SW_SHOW, $hGUI)
-
-    Local $sComboRead = ""
 
     ; Loop until the user exits.
     While 1
@@ -25,9 +20,12 @@ Func Example()
             Case $GUI_EVENT_CLOSE, $idButton_Close
                 ExitLoop
 
-            Case $idComboBox
-                $sComboRead = GUICtrlRead($idComboBox)
-                MsgBox($MB_SYSTEMMODAL, "", "The combobox is currently displaying: " & $sComboRead, 0, $hGUI)
+            Case $idCheckbox
+                If _IsChecked($idCheckbox) Then
+                    MsgBox($MB_SYSTEMMODAL, "", "The checkbox is checked.", 0, $hGUI)
+                Else
+                    MsgBox($MB_SYSTEMMODAL, "", "The checkbox is not checked.", 0, $hGUI)
+                EndIf
 
         EndSwitch
     WEnd
@@ -35,3 +33,7 @@ Func Example()
     ; Delete the previous GUI and all controls.
     GUIDelete($hGUI)
 EndFunc   ;==>Example
+
+Func _IsChecked($idControlID)
+    Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
+EndFunc   ;==>_IsChecked
