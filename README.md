@@ -7,8 +7,8 @@ mainly automate training for various class/jobs, some helpful automator for craf
 
 
 safety issues:
-* Use random delay to simulate human-interactive-like key strokes
-* Name program carefuly to avoid suspicion
+* Use a random sleep-time and a random number of key strokes to simulate human-interactive-like key strokes
+* Name your compiled program carefuly to avoid suspicion
 * Avoid training for too long. It causes suspicion and attract GM patrol. (no reasonable human player can sit there for 8+ hours of training w/o break, 8 is just a number)
 
 Usage:
