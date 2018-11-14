@@ -2,8 +2,8 @@
 mainly automate training for various class/jobs, some helpful automator for crafting and clicking/pressing
 
 
-1. To send key strokes at intervals to perform skill combo
-2. To send key strokes at to perform movement combo
+1. To send key strokes at right intervals to perform skill combo
+2. To send key strokes at right intervals to perform movement combo
 
 
 safety issues:
