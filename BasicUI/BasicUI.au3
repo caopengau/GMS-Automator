@@ -16,7 +16,7 @@ $BUTTON_HEIGHT = 100
 
 
 Global $isPaused = False
-Global $buttonText = "Running"
+Global $buttonText = "Running(F9)"
 
 Global $hMainGUI = GUICreate("GMS Traing Automator", $UI_WIDTH, $UI_HEIGHT)
 GUISetOnEvent($GUI_EVENT_CLOSE, "CLOSEButton")
@@ -36,10 +36,10 @@ WEnd
 Func Pause()
     $isPaused = not $isPaused
     If($isPaused) Then
-        $buttonText = "Paused"
+        $buttonText = "Paused(F9)"
         GUICtrlSetBkColor($PauseButton, $COLOR_RED)
     Else
-        $buttonText = "Running"
+        $buttonText = "Running(F9)"
         GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
     EndIf
 
