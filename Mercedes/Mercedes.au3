@@ -74,7 +74,6 @@ EndFunc
 
 
 Func CooldownBuff()
-	WinActivate($GMS)
 	SpamKey("3")
 	SpamKey("4")
 	SpamKey("5")
@@ -164,7 +163,7 @@ Func RushUp()
 	SpamKey("v")
 	Sleep(600)
 	SpamKey("c")
-	Sleep(250)
+	Sleep(150)
 EndFunc
 
 ; Rishing Rush + Rolling Moonsault
@@ -177,7 +176,7 @@ Func RushRoll()
 	SpamKey("v")
 	Sleep(600)
 	SpamKey("x")
-	Sleep(250)
+	Sleep(300)
 EndFunc
 
 
@@ -190,7 +189,7 @@ Func LightningEdge($dir)
 	DirectionDown($dir)
 	SpamKey("s")
 	DirectionUp($dir)
-	Sleep(500)
+	Sleep(150)
 EndFunc
 
 ; Wraith of Enlil edge
@@ -222,7 +221,7 @@ Func Spike()
 		$feedBackString = "Spike Royale"
 	EndIf
 	SpamKey("y")
-	Sleep(700)
+	Sleep(600)
 EndFunc
 
 ; Rolling Moonsault
@@ -341,10 +340,9 @@ Func LightningRushupSpikeTornadoWraith($reverseSTW)
 	Else
 		DirectionDown($left)
 	EndIf
-	Tornado(0,500)
+	Tornado(0,100)
 
 	Spike()
-	Sleep(100)
 
 	DirectionUp(not $left)
 	DirectionUp($left)

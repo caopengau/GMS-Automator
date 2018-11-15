@@ -13,6 +13,8 @@ Safety Issues:
 
 Usage:
 
+"F10 to exit program"
+
 Case 1:
     1. Download and install autoit https://www.autoitscript.com/site/autoit/downloads/
     2. Download all scripts, compile the class.au3 script to produce .exe (rename it to something random if you don't attract nexon game security's attention)
@@ -21,8 +23,14 @@ Case 1:
     5. a few customation set-ups, hover over to see tips of each item
     6. Go to the training map, press GO buttom to start
 
+"F10 to exit program"
+
 Case 2: (if you are lazy)
     1. Download the class.exe
     2. Follow the classSetup.txt to set the key binding in game
     3. Go to the training map
     4. Run the class.exe as admin
+
+"F10 to exit program"
+"F10 to exit program"
+"F10 to exit program" in case you get stuck in the mess of key pressing
