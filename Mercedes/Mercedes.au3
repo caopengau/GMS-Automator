@@ -23,28 +23,29 @@ Local $idRadio2 = GUICtrlCreateRadio("PlatForm3", 10, $R_2, 120, 20)
 GUICtrlSetTip(-1, "For -_- shape map")
 Local $idRadio3 = GUICtrlCreateRadio("TwoParallel", 10, $R_3, 120, 20)
 GUICtrlSetTip(-1, "For = shape map")
-GUICtrlSetState($idRadio3, $GUI_CHECKED)
+;GUICtrlSetState($idRadio3, $GUI_CHECKED)
 
-$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
-$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
+Global $Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
+Global $Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
 
 ; main loop for mercedes
 While 1
     If($isPaused) Then
         Sleep(100) ; Paused, Sleep to reduce CPU usage
 
-
+		$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
+		$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
     Else
         ; running training automator strategy/skill combo
         ToolTip("Running mercedes automator", 0, 0)
         
         $TotalRunTime = Round((TimerDiff($StartTime))/1000);
         
-        MasterBuff()
+        ; MasterBuff()
 
         If $Combo3 Then
 			TwoParallel(3)
-		ElseIf $Combo2
+		ElseIf $Combo2 Then
 			PlatForm3()
 		Else
 			LightingClear(6)
@@ -187,9 +188,11 @@ Func LightningEdge($dir)
 		$feedBackString = "Lightning Edge"
 	EndIf
 	DirectionDown($dir)
+	DirectionDown($dir)
 	SpamKey("s")
+	Sleep(170)
+	
 	DirectionUp($dir)
-	Sleep(150)
 EndFunc
 
 ; Wraith of Enlil edge
@@ -215,13 +218,13 @@ Func Tornado($delay1, $delay2)
 EndFunc
 
 ; Spike Royale
-Func Spike()
+Func Spike($delay)
 	WinActivate($GMS)
 	If($FeedBack) Then
 		$feedBackString = "Spike Royale"
 	EndIf
 	SpamKey("y")
-	Sleep(600)
+	Sleep($delay)
 EndFunc
 
 ; Rolling Moonsault
@@ -245,6 +248,7 @@ EndFunc
 
 Func LightningRushup($dir)
 	LightningEdge($dir)
+	Sleep(50)
 	RushUp()
 EndFunc
 
@@ -259,26 +263,26 @@ Func Flash()
 EndFunc
 
 ; Merc 3-combo skill
-Func LightningRushupTornado($dir, $tornadoDelay1)
+Func LightningRushupTornado($dir, $tornadoDelay1, $tornadoDelay2)
 	LightningRushup($dir)
-	Tornado($tornadoDelay, 250)
+	Tornado($tornadoDelay1, $tornadoDelay2)
 EndFunc
 
 Func RushupTornadoSpike($td1, $td2)
 	Rushup()
 	Tornado($td1, $td2)
-	Spike()
+	Spike(500)
 EndFunc
 
 Func RushupSpikeTornado($td1, $td2)
 	Rushup()
-	Spike()
+	Spike(500)
 	Tornado($td1, $td2)
 EndFunc
 
 Func LightningRushupSpike($dir)
 	LightningRushup($dir)
-	Spike()
+	Spike(500)
 EndFunc
 
 Func WraithLightningRushup($dir)
@@ -296,7 +300,7 @@ Func LightningWraithRushupSpike()
 	LightningEdge($left)
 	Wraith(700)
 	RushUp()
-	Spike()
+	Spike(500)
 EndFunc
 
 
@@ -313,7 +317,7 @@ Func LightningWraithRushupSpikeTornado($tornadoDelay)
 	LightningEdge($left)
 	Wraith(700)
 	RushUp()
-	Spike()
+	Spike(500)
 	Tornado($tornadoDelay, 250)
 EndFunc
 
@@ -324,7 +328,7 @@ Func RushupSpikeReverseGustLightningWraith()
 
 
 	Rushup()
-	Spike()
+	Spike(500)
 	Sleep(550)
 	GustDive(not $left)
 	LightningEdge(not $left)
@@ -333,16 +337,16 @@ Func RushupSpikeReverseGustLightningWraith()
 	$left = not $left
 EndFunc
 
-Func LightningRushupSpikeTornadoWraith($reverseSTW)
-	LightningRushup($left)
-	If($reverseSTW) Then
+Func LightningRushupTornadoSpikeWraith($reverseSW)
+	LightningRushupTornado($left, 0, 30)
+
+	If($reverseSW) Then
 		DirectionDown(not $left)
 	Else
 		DirectionDown($left)
 	EndIf
-	Tornado(0,100)
 
-	Spike()
+	Spike(500)
 
 	DirectionUp(not $left)
 	DirectionUp($left)
@@ -356,10 +360,11 @@ EndFunc
 Func PlatForm3()
 
 	; w8 for buff animation
-	Sleep(1000)
+	Sleep(2000)
 
 	WraithLightningRushup(not $left)
-	Spike()
+	Sleep(100)
+	Spike(500)
 
 	$left = not $left
 EndFunc
@@ -371,7 +376,7 @@ Func ComboBossing()
 	StunningStrike()
 	Unicorn()
 	StunningStrike()
-	Spike()
+	Spike(500)
 	Tornado(0, 300)
 
 	DirectionUp($Left)
@@ -406,17 +411,14 @@ EndFunc
 ;; good for flatmap mobbing
 Func LightingClear($Times)
 	$Count = 0
+
+
 	DirectionDown($Left)
 
 	While $Count<$Times
-		Send("s")
+		LightningEdge($left)
 		Sleep(1)
-		Send("s")
-		Sleep(1)
-		Send("s")
-		Sleep(1)
-		Send("t")
-		Sleep(800)
+		SpamKey("t")
 		$Count+=1
 	WEnd
 
@@ -436,9 +438,9 @@ Func TwoParallel($n)
 
 	While $count<$n
 		If ($count < $n-1) Then
-			LightningRushupSpikeTornadoWraith(False)
+			LightningRushupTornadoSpikeWraith(False)
 		Else
-			LightningRushupSpikeTornadoWraith(True)
+			LightningRushupTornadoSpikeWraith(True)
 		EndIf
 		$count+=1
 	WEnd
