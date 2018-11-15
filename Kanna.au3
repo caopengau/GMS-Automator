@@ -81,7 +81,7 @@ Func EfficientMobbing()
 	; basic attack-move skill combo
 	TripleHauntTeleport()
 
-	; just teleport
+	; stronger aggresive attack-move combo corral-teleport combo
 	; CorralTeleport()
 
 EndFunc
@@ -134,9 +134,9 @@ Func CooldownBuff()
 	SpamKey("a")	; frost girl
 	SpamKey("3")	; decent HS
 	SpamKey("4")	; decent crit
+	SpamKey("5")	;
 	SpamKey("6")	; princess
 	SpamKey("7")	; heal tree
-	SpamKey("5")	;
 	SpamKey("F2")	; decent body
 	SpamKey("s")	; rush across to loot
 	

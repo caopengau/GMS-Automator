@@ -14,7 +14,8 @@ safety issues:
 Usage:
 
 1. Download and install autoit https://www.autoitscript.com/site/autoit/downloads/
-2. compile the class.au3 script to produce .exe (rename it to something random if you don't attract nexon game security's attention)
-3. right click and run as administrator
-4. a few customation set-ups, hover over to see tips of each item
-5. launch maplestory as normal, go to the training map, press GO buttom to start
+2. Download all scripts, compile the class.au3 script to produce .exe (rename it to something random if you don't attract nexon game security's attention)
+3. Launch maplestory as normal, Read the ClassSetup.txt to setup the keybinding in game
+4. right click and run as administrator
+5. a few customation set-ups, hover over to see tips of each item
+6. Go to the training map, press GO buttom to start

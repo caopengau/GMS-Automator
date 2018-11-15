@@ -1,0 +1,28 @@
+Arrange keybinding in game as such
+
+    $BasicHauntKey = "f"    ; basic attack on f
+    $EtherPulseSKey = "v"   ; teleport on v
+    $GoblinFootKey = "h"    ; 160 hyper aoe skill on h
+    $KishinKey = "LSHIFT"   ; kishin on left shift
+    $OrochiKey = "c"        ; the dragon aoe thing on c
+    $NimbusCurseKey = "y"   ; the 2nd job aoe, with poison cloud on y
+    $CorralKey = "g"        ; 3rd job 2-sided spinning thing on g
+    $NineTailKey = "z"      ; 4th job big aoe long cd thing on z
+    $GrandPaKey = "e"       ; the 3s cd 2-sided attack on e
+    $FeedPetKey = "F5"      ; keep ur pet alive and loot things on F5
+    $ManaBalancekey = "2"   ; get mana lose 30% HP on 2
+    $BuffKey = "q"	; use macroskill, put 3 buff there. this combo buff has 4 min interval and cast 4 seconds cast time, on q
+
+    put the other skill with cooldown on these keys decreasing priorty, at least empty these, the default kanna automator will spam these keys
+    at fix cycles
+        ALT
+        w
+        F1
+        a
+        3
+        4
+        5
+        6
+        7
+        F2
+        s
