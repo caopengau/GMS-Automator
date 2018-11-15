@@ -4,7 +4,7 @@ Global $StartTime = TimerInit()
 Global $TotalRunTime = 0
 Global $left = False
 
-Global $Cycle = TimerInit()
+Global $Cycle = TimerInit() + 40000
 Global $Timer = 0
 Global $MapleWarriorBuffTimer = 15000
 
@@ -23,10 +23,12 @@ Local $idRadio2 = GUICtrlCreateRadio("PlatForm3", 10, $R_2, 120, 20)
 GUICtrlSetTip(-1, "For -_- shape map")
 Local $idRadio3 = GUICtrlCreateRadio("TwoParallel", 10, $R_3, 120, 20)
 GUICtrlSetTip(-1, "For = shape map")
-;GUICtrlSetState($idRadio3, $GUI_CHECKED)
+GUICtrlSetState($idRadio3, $GUI_CHECKED)
 
 Global $Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
 Global $Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
+
+$startBuff = True
 
 ; main loop for mercedes
 While 1
@@ -41,7 +43,12 @@ While 1
         
         $TotalRunTime = Round((TimerDiff($StartTime))/1000);
         
-        ; MasterBuff()
+		If ($startBuff) Then
+			$startBuff = False
+			Regular3MinBuff()
+		EndIf
+
+        MasterBuff()
 
         If $Combo3 Then
 			TwoParallel(3)
@@ -62,7 +69,7 @@ Func MasterBuff()
 
 	WinActivate($GMS)
 	$Timer = Round((TimerDiff($Cycle))/1000);
-
+	ToolTip($Timer, 0, 0)
 	If $Timer>=179 Then
 		$Timer = 0
 		Regular3MinBuff()

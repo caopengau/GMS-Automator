@@ -25,12 +25,12 @@ $NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; skill cooldown tracker
 Global $Cycle3s = TimerInit()	; 3s cd tracker
-Global $Cycle21s = TimerInit() + 20000	; 21s
-Global $Cycle51s = TimerInit() + 40000	; 51
-Global $Cycle75s = TimerInit() + 86000
-Global $Cycle121s = TimerInit() + 103000
-Global $Cycle326s = TimerInit() + 303000
-Global $Cycle240Buff = TimerInit() + 241000
+Global $Cycle21s = TimerInit()
+Global $Cycle51s = TimerInit()
+Global $Cycle75s = TimerInit()
+Global $Cycle121s = TimerInit()
+Global $Cycle326s = TimerInit()
+Global $Cycle240Buff = TimerInit()
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; kanna UI
@@ -52,6 +52,7 @@ GUICtrlSetTip(-1, "For strong kanna, coupled well with aggressive")
 GUICtrlSetState($idRadio1, $GUI_CHECKED)
 
 $xOryTeleport = True
+Global $startBuff = True
 
 ; main loop for kanna
 While 1
@@ -64,6 +65,12 @@ While 1
     Else
         ; running training automator strategy/skill combo
         ; TripleHauntTeleport()
+        
+		If ($startBuff) Then
+			$startBuff = False
+			Regular4MinBuff()
+		EndIf
+
 		EfficientMobbing()
     EndIf
 WEnd
