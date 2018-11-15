@@ -1,0 +1,24 @@
+Arrange keybinding in game as such
+    Lightning edge  - s
+    RisingRush      - v
+    Arial Barrage   - c
+    Rolling Moonsault   - x
+    Wraith of Enlil - g
+    UnicornSpike    - h
+    Leap Tornado    - t
+    SpikeRoyale     - y
+    GustDive        - e
+    Stunning Strike - f
+    BuffKey         - q	; use macroskill, put 3 buff there. this combo buff has 4 min interval and cast 4 seconds cast time, on q
+
+    put the other skill with cooldown(eg. Spirit of Elluel, Decent HS, SharpEye...) on these keys decreasing priorty, at least empty these, the default kanna automator will spam these keys
+    at fix cycles
+        3
+        4
+        5
+        6
+        7
+        w
+        q
+        F1
+        F2

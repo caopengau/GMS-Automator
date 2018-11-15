@@ -1,7 +1,5 @@
 
 #include "..\Utility.au3"
-#include <GUIConstantsEx.au3>
-#include <MsgBoxConstants.au3>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; key skill variable

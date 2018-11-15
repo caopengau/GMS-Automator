@@ -52,10 +52,10 @@ GUICtrlSetTip(-1, "To create some random key strokes to simulate variation in ke
 Local $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R4, $INPUT_WIDTH)
 
 
-GUICtrlCreateLabel("Class", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
-Local $UIClass = GUICtrlCreateCombo("Kanna", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
-; Add additional items to the combobox.
-GUICtrlSetData($UIClass, "Kanna|PersonalTrainer", "-")
+;GUICtrlCreateLabel("Class", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
+;Local $UIClass = GUICtrlCreateCombo("Kanna", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
+; ;;Add additional items to the combobox.
+;GUICtrlSetData($UIClass, "Kanna|PersonalTrainer", "-")
 
 
 GUICtrlCreateLabel("Feedback", $LEFT_MARGIN, $R6, $LABEL_WIDTH)
@@ -78,7 +78,7 @@ GUISetState(@SW_SHOW, $hMainGUI)
 Global $KeySpamN = GUICtrlRead($UIKeySpamN)
 Global $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
 Global $KeySpamVariation = GUICtrlRead($UIKeySpamVariation)
-Global $Class = GUICtrlRead($UIClass)
+; Global $Class = GUICtrlRead($UIClass)
 Global $PetFoodKey = GUICtrlRead($UIPetFood)
 Global $FeedBack
 
@@ -95,7 +95,7 @@ Func Pause()
     $KeySpamN = GUICtrlRead($UIKeySpamN)
     $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
     $KeySpamVariation = GUICtrlRead($UIKeySpamVariation)
-    $Class = GUICtrlRead($UIClass)
+    ; $Class = GUICtrlRead($UIClass)
     $FeedBack = _IsChecked($UIFeedBack)
     $PetFoodKey = GUICtrlRead($UIPetFood)
 
