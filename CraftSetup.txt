@@ -1,0 +1,3 @@
+drag the in-game craft window to the top left corner
+click on the item you want to craft
+the automator will automatically click the craft and ok once every 30s
