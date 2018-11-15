@@ -17,8 +17,9 @@ WEnd
 ; TripleHaunt and teleport
 Func TripleHauntTeleport()
 	TripleHaunt()
+	Sleep(350)
 	EtherPulse()
-	Sleep(500)  ; sleep time is dependant on attack speed, can be optimised
+	; sleep time is dependant on attack speed, can be optimised
 EndFunc
 
 

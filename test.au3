@@ -4,36 +4,31 @@
 Example()
 
 Func Example()
-    ; Create a GUI with various controls.
-    Local $hGUI = GUICreate("Example", 300, 200)
+    Local $sMESSAGE = "The following buttons have been clicked"
 
-    ; Create a checkbox control.
-    Local $idCheckbox = GUICtrlCreateCheckbox("Standard Checkbox", 10, 10, 185, 25)
-    Local $idButton_Close = GUICtrlCreateButton("Close", 210, 170, 85, 25)
+    GUICreate("My GUI list") ; will create a dialog box that when displayed is centered
 
-    ; Display the GUI.
-    GUISetState(@SW_SHOW, $hGUI)
+    Local $idButton_Add = GUICtrlCreateButton("Add", 64, 32, 75, 25)
+    Local $idButton_Clear = GUICtrlCreateButton("Clear", 64, 72, 75, 25)
+    Local $idMylist = GUICtrlCreateList("buttons that have been clicked", 176, 32, 121, 97)
+    GUICtrlSetLimit(-1, 200) ; to limit horizontal scrolling
+    GUICtrlSetData(-1, $sMESSAGE)
+    Local $idButton_Close = GUICtrlCreateButton("my closing button", 64, 160, 175, 25)
+
+    GUISetState(@SW_SHOW)
 
     ; Loop until the user exits.
     While 1
         Switch GUIGetMsg()
-            Case $GUI_EVENT_CLOSE, $idButton_Close
+            Case $GUI_EVENT_CLOSE
                 ExitLoop
-
-            Case $idCheckbox
-                If _IsChecked($idCheckbox) Then
-                    MsgBox($MB_SYSTEMMODAL, "", "The checkbox is checked.", 0, $hGUI)
-                Else
-                    MsgBox($MB_SYSTEMMODAL, "", "The checkbox is not checked.", 0, $hGUI)
-                EndIf
-
+            Case $idButton_Add
+                GUICtrlSetData($idMylist, "You clicked button No1|")
+            Case $idButton_Clear
+                GUICtrlSetData($idMylist, "")
+            Case $idButton_Close
+                MsgBox($MB_SYSTEMMODAL, "", "the closing button has been clicked", 2)
+                Exit
         EndSwitch
     WEnd
-
-    ; Delete the previous GUI and all controls.
-    GUIDelete($hGUI)
 EndFunc   ;==>Example
-
-Func _IsChecked($idControlID)
-    Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
-EndFunc   ;==>_IsChecked
