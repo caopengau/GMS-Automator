@@ -41,19 +41,19 @@ GUICtrlCreateLabel("Welcome to GMS traning automator - by Cao", $LEFT_MARGIN, $R
 
 GUICtrlCreateLabel("Key Spam Number: (natural number)", $LEFT_MARGIN, $R2, $LABEL_WIDTH) ; first cell 70 width
 GUICtrlSetTip(-1, "More strokes will ensure the skill to go off at the cost of higher delay and attracting GM, less than 3 is recommanded")
-Global $UIKeySpamN = GUICtrlCreateInput("",  $RIGHT_MARGIN - $INPUT_WIDTH, $R2, $INPUT_WIDTH)
+Global $UIKeySpamN = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R2, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Interval: (in milliseconds)", $LEFT_MARGIN, $R3, $LABEL_WIDTH) ; first cell 70 width
 GUICtrlSetTip(-1, "Longer interval will simulate better human reaction time at the cost of skill/command delay\n 5-50 is recommanded")
-Global $UIKeySpamSleep = GUICtrlCreateInput("",  $RIGHT_MARGIN - $INPUT_WIDTH, $R3, $INPUT_WIDTH)
+Global $UIKeySpamSleep = GUICtrlCreateInput("11",  $RIGHT_MARGIN - $INPUT_WIDTH, $R3, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Variation: (natural number)", $LEFT_MARGIN, $R4, $LABEL_WIDTH) ; first cell 70 width
 GUICtrlSetTip(-1, "To create some random key strokes to simulate variation in key strokes, less than 3 is recommanded")
-Global $UIKeySpamVariation = GUICtrlCreateInput("",  $RIGHT_MARGIN - $INPUT_WIDTH, $R4, $INPUT_WIDTH)
+Global $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R4, $INPUT_WIDTH)
 
 
 GUICtrlCreateLabel("Class", $LEFT_MARGIN, $R5, $LABEL_WIDTH) ; first cell 70 width
-Local $UIClass = GUICtrlCreateCombo("", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
+Local $UIClass = GUICtrlCreateCombo("Kanna", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
 ; Add additional items to the combobox.
 GUICtrlSetData($UIClass, "Kanna|NextOne", "Kanna")
 

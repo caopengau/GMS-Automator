@@ -26,7 +26,7 @@ EndFunc
 ; basic skill
 ; basic attack 3 times combo for kanna
 Func TripleHaunt()
-	If(_IsChecked($UIFeedBack)) Then    ; update and show feedback if User wants it
+	If($UIFeedBack) Then    ; update and show feedback if User wants it
 		$feedBackString = "Triple Haunt"
         ToolTip($feedBackString, 0, 0)
 	EndIf
