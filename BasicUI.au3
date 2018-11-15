@@ -90,7 +90,17 @@ Global $feedBackString
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
 Func Pause()
+    $isPaused = not $isPaused
+    If($isPaused) Then
+        $buttonText = "Go(F9)"
+        GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
+    Else
+        $buttonText = "Stop(F9)"
+        GUICtrlSetBkColor($PauseButton, $COLOR_RED)
+    EndIf
+    GUICtrlSetData($PauseButton, $buttonText)
 
     $KeySpamN = GUICtrlRead($UIKeySpamN)
     $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
@@ -98,18 +108,6 @@ Func Pause()
     ; $Class = GUICtrlRead($UIClass)
     $FeedBack = _IsChecked($UIFeedBack)
     $PetFoodKey = GUICtrlRead($UIPetFood)
-
-    $isPaused = not $isPaused
-    If($isPaused) Then
-        
-        $buttonText = "Go(F9)"
-        GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
-    Else
-        $buttonText = "Stop(F9)"
-        GUICtrlSetBkColor($PauseButton, $COLOR_RED)
-    EndIf
-
-    GUICtrlSetData($PauseButton, $buttonText)
 EndFunc
 
 Func Terminate()

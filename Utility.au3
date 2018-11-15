@@ -71,3 +71,10 @@ Func Turn($dir)
 		SpamKey("RIGHT")
 	EndIf
 EndFunc
+
+; If pause button pressed sleep in this loop
+Func CheckPause()
+	While $isPaused
+		Sleep(100)
+	WEnd
+EndFunc

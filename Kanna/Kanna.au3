@@ -56,23 +56,18 @@ Global $startBuff = True
 
 ; main loop for kanna
 While 1
-    If($isPaused) Then
-        Sleep(100) ; Paused, Sleep to reduce CPU usage
+	CheckPause()
+	$BeAggressive = _IsChecked($UIAggressive)
+	$xOryTeleport = (BitAND(GUICtrlRead($idRadio1), $GUI_CHECKED) = $GUI_CHECKED)
 
-		$BeAggressive = _IsChecked($UIAggressive)
-		$xOryTeleport = (BitAND(GUICtrlRead($idRadio1), $GUI_CHECKED) = $GUI_CHECKED)
 
-    Else
-        ; running training automator strategy/skill combo
-        ; TripleHauntTeleport()
-        
-		If ($startBuff) Then
-			$startBuff = False
-			Regular4MinBuff()
-		EndIf
+	If ($startBuff) Then
+		$startBuff = False
+		Regular4MinBuff()
+	EndIf
 
-		EfficientMobbing()
-    EndIf
+	; training strategy
+	EfficientMobbing()
 WEnd
 
 

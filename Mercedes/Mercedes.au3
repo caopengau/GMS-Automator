@@ -30,34 +30,33 @@ Global $Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
 
 $startBuff = True
 
+
 ; main loop for mercedes
 While 1
-    If($isPaused) Then
-        Sleep(100) ; Paused, Sleep to reduce CPU usage
+	CheckPause()
 
-		$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
-		$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
-    Else
-        ; running training automator strategy/skill combo
-        ToolTip("Running mercedes automator", 0, 0)
-        
-        $TotalRunTime = Round((TimerDiff($StartTime))/1000);
-        
-		If ($startBuff) Then
-			$startBuff = False
-			Regular3MinBuff()
-		EndIf
+	$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
+	$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
 
-        MasterBuff()
+	; running training automator strategy/skill combo
+	ToolTip("Running mercedes automator", 0, 0)
+	
+	$TotalRunTime = Round((TimerDiff($StartTime))/1000);
+	
+	If ($startBuff) Then
+		$startBuff = False
+		Regular3MinBuff()
+	EndIf
 
-        If $Combo3 Then
-			TwoParallel(3)
-		ElseIf $Combo2 Then
-			PlatForm3()
-		Else
-			LightingClear(6)
-		EndIf
-    EndIf
+	MasterBuff()
+
+	If $Combo3 Then
+		TwoParallel(3)
+	ElseIf $Combo2 Then
+		PlatForm3()
+	Else
+		LightingClear(6)
+	EndIf
 WEnd
 
 
@@ -345,7 +344,7 @@ Func RushupSpikeReverseGustLightningWraith()
 EndFunc
 
 Func LightningRushupTornadoSpikeWraith($reverseSW)
-	LightningRushupTornado($left, 0, 30)
+	LightningRushupTornado($left, 0, 0)
 
 	If($reverseSW) Then
 		DirectionDown(not $left)
@@ -353,7 +352,7 @@ Func LightningRushupTornadoSpikeWraith($reverseSW)
 		DirectionDown($left)
 	EndIf
 
-	Spike(500)
+	Spike(300)
 
 	DirectionUp(not $left)
 	DirectionUp($left)
@@ -368,7 +367,7 @@ Func PlatForm3()
 
 	; w8 for buff animation
 	Sleep(2000)
-
+	CheckPause()
 	WraithLightningRushup(not $left)
 	Sleep(100)
 	Spike(500)
@@ -423,6 +422,7 @@ Func LightingClear($Times)
 	DirectionDown($Left)
 
 	While $Count<$Times
+		CheckPause()
 		LightningEdge($left)
 		Sleep(1)
 		SpamKey("t")
@@ -444,6 +444,7 @@ Func TwoParallel($n)
 	$count = 0
 
 	While $count<$n
+		CheckPause()
 		If ($count < $n-1) Then
 			LightningRushupTornadoSpikeWraith(False)
 		Else
