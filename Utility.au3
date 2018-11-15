@@ -1,3 +1,4 @@
+#include "BasicUI.au3"
 
 ; basic key stroke simulator
 Func SpamKey($key)
@@ -10,4 +11,17 @@ Func SpamKey($key)
 		$counter+=1
 	WEnd
 
+EndFunc
+
+Func PauseTip()	; report current configuration
+	ToolTip("Paused."& @CRLF& "keyspamN: "&$KeySpamN& @CRLF&  "Keysleep: "&$KeySpamSleep& @CRLF&  "keyvariation: "&$KeySpamVariation& @CRLF&  "Pet Food Key: "&$PetFoodKey, 0, 0)
+        
+EndFunc
+
+Func FeedPet()
+	If($FeedBack) Then
+		$FeedBackString = "Feed Pet"
+	EndIf
+	SpamKey($PetFoodKey)
+	Sleep(100)
 EndFunc

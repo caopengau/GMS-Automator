@@ -32,7 +32,7 @@ $R3 = 65
 $R4 = 90
 $R5 = 115
 $R6 = 140
-$R7 = 165
+$R7 = 175
 
 Global $hMainGUI = GUICreate("GMS Traing Automator", $UI_WIDTH, $UI_HEIGHT, 0, 0)
 GUISetOnEvent($GUI_EVENT_CLOSE, "Terminate")
@@ -53,14 +53,18 @@ Global $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WID
 
 
 GUICtrlCreateLabel("Class", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
-Local $UIClass = GUICtrlCreateCombo("-", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
+Local $UIClass = GUICtrlCreateCombo("Kanna", $RIGHT_MARGIN - $INPUT_WIDTH, $R5, $BUTTON_WIDTH, $INPUT_WIDTH)
 ; Add additional items to the combobox.
 GUICtrlSetData($UIClass, "Kanna|PersonalTrainer", "-")
 
 
 GUICtrlCreateLabel("Feedback", $LEFT_MARGIN, $R6, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "Report what skill(button) is it doing right now")
-Global $UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH, $R6, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+Global $UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH -  $INPUT_WIDTH, $R6, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+
+GUICtrlCreateLabel("Pet Food key: ", $LEFT_MARGIN, $R7, $LABEL_WIDTH)
+GUICtrlSetTip(-1, "key for pet food (default F5)")
+Global $UIPetFood = GUICtrlCreateInput("F5",  $RIGHT_MARGIN - $INPUT_WIDTH, $R7, $INPUT_WIDTH)
 
 $buttonText = "Go(F9)"
 Global $PauseButton = GUICtrlCreateButton($buttonText, $UI_WIDTH - $BUTTON_WIDTH, $UI_HEIGHT - $BUTTON_HEIGHT, $BUTTON_WIDTH, $BUTTON_HEIGHT)
@@ -75,7 +79,8 @@ Global $KeySpamN = GUICtrlRead($UIKeySpamN)
 Global $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
 Global $KeySpamVariation = GUICtrlRead($UIKeySpamVariation)
 Global $Class = GUICtrlRead($UIClass)
-Global $UIFeedBack
+Global $PetFoodKey = GUICtrlRead($UIPetFood)
+Global $FeedBack
 
 ; initial variables and value
 Global $GMS = "MapleStory"      ; target program to send key stroke
@@ -91,12 +96,12 @@ Func Pause()
     $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
     $KeySpamVariation = GUICtrlRead($UIKeySpamVariation)
     $Class = GUICtrlRead($UIClass)
-    $UIFeedBack = _IsChecked($UIFeedBack)
+    $FeedBack = _IsChecked($UIFeedBack)
+    $PetFoodKey = GUICtrlRead($UIPetFood)
 
     $isPaused = not $isPaused
     If($isPaused) Then
         
-        ToolTip("Paused. keyspamN: "&$KeySpamN&"\nKeysleep: "&$KeySpamSleep&"\nkeyvariation: "&$KeySpamVariation, 0, 0)
         $buttonText = "Go(F9)"
         GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
     Else
