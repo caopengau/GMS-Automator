@@ -1,5 +1,7 @@
 
 #include "Utility.au3"
+#include <GUIConstantsEx.au3>
+#include <MsgBoxConstants.au3>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; key skill variable
@@ -16,7 +18,7 @@ $FeedPetKey = "F5"
 
 
 $ManaBalancekey = "2"
-$BeAggressive = True ; use ManaBalance
+$BeAggressive = False ; use ManaBalance
 
 $BuffKey = "q"	; this buff has 4 min interval and cast w8 time
 
@@ -32,11 +34,35 @@ Global $Cycle121s = TimerInit() + 103000
 Global $Cycle326s = TimerInit() + 303000
 Global $Cycle240Buff = TimerInit() + 241000
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; kanna UI
+; UI constants
+
+$R_3 = $UI_HEIGHT - 20
+$R_2 = $UI_HEIGHT - 40
+$R_1 = $UI_HEIGHT - 80
+
+
+GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, $R_1, $LABEL_WIDTH - 100)
+GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
+Global $UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, $R_1, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+
+Local $idRadio1 = GUICtrlCreateRadio("Triple Haunt Teleport", 10, $R_2, 120, 20)
+GUICtrlSetTip(-1, "For basic kanna")
+Local $idRadio2 = GUICtrlCreateRadio("Corral Teleport", 10, $R_3, 120, 20)
+GUICtrlSetTip(-1, "For strong kanna, coupled well with aggressive")
+GUICtrlSetState($idRadio1, $GUI_CHECKED)
+
+$xOryTeleport = True
 
 ; main loop for kanna
 While 1
     If($isPaused) Then
         Sleep(100) ; Paused, Sleep to reduce CPU usage
+
+		$BeAggressive = _IsChecked($UIAggressive)
+		$xOryTeleport = (BitAND(GUICtrlRead($idRadio1), $GUI_CHECKED) = $GUI_CHECKED)
+
     Else
         ; running training automator strategy/skill combo
         ; TripleHauntTeleport()
@@ -78,11 +104,11 @@ Func EfficientMobbing()
 		NineTail()
 	EndIf
 
-	; basic attack-move skill combo
-	TripleHauntTeleport()
-
-	; stronger aggresive attack-move combo corral-teleport combo
-	; CorralTeleport()
+	If $xOryTeleport Then
+		TripleHauntTeleport()
+	Else
+		CorralTeleport()
+	EndIf
 
 EndFunc
 
@@ -95,7 +121,6 @@ Func TripleHauntTeleport()
 	WinActivate($GMS)
 
 	TripleHaunt()
-	Sleep(350)
 	EtherPulse()
 	; sleep time is dependant on attack speed, can be optimised
 EndFunc

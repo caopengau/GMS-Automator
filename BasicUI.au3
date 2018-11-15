@@ -13,17 +13,17 @@ HotKeySet("{F9}", "Pause")
 HotKeySet("{F10}", "Terminate")
 
 ; UI constants
-$UI_LEFT = 0    ; starting UI location
-$UI_TOP = 0
-$UI_WIDTH = 300 ; UI size
-$UI_HEIGHT = 300
-$BUTTON_WIDTH = 100 ; button size
-$BUTTON_HEIGHT = 100
-$LABEL_WIDTH = 200  ; label size
-$INPUT_WIDTH = 100  ; input size
-$LEFT_MARGIN = 10   ; margin left
-$RIGHT_MARGIN = $UI_WIDTH - $LEFT_MARGIN    ; margin right
-$CHECKBOX_SIZE = 50 ; checkbox size
+Global $UI_LEFT = 0    ; starting UI location
+Global $UI_TOP = 0
+Global $UI_WIDTH = 300 ; UI size
+Global $UI_HEIGHT = 300
+Global $BUTTON_WIDTH = 100 ; button size
+Global $BUTTON_HEIGHT = 100
+Global $LABEL_WIDTH = 200  ; label size
+Global $INPUT_WIDTH = 100  ; input size
+Global $LEFT_MARGIN = 10   ; margin left
+Global $RIGHT_MARGIN = $UI_WIDTH - $LEFT_MARGIN    ; margin right
+Global $CHECKBOX_SIZE = 40 ; checkbox size
 
 ; UI row layout
 $R1 = 10
@@ -41,15 +41,15 @@ GUICtrlCreateLabel("Welcome to GMS traning automator - by Cao", $LEFT_MARGIN, $R
 
 GUICtrlCreateLabel("Key Spam Number: (natural number)", $LEFT_MARGIN, $R2, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "More strokes will ensure the skill to go off at the cost of higher delay and attracting GM, less than 3 is recommanded")
-Global $UIKeySpamN = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R2, $INPUT_WIDTH)
+Local $UIKeySpamN = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R2, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Interval: (in milliseconds)", $LEFT_MARGIN, $R3, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "Longer interval will simulate better human reaction time at the cost of skill/command delay\n 5-50 is recommanded")
-Global $UIKeySpamSleep = GUICtrlCreateInput("11",  $RIGHT_MARGIN - $INPUT_WIDTH, $R3, $INPUT_WIDTH)
+Local $UIKeySpamSleep = GUICtrlCreateInput("11",  $RIGHT_MARGIN - $INPUT_WIDTH, $R3, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Variation: (natural number)", $LEFT_MARGIN, $R4, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "To create some random key strokes to simulate variation in key strokes, less than 3 is recommanded")
-Global $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R4, $INPUT_WIDTH)
+Local $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R4, $INPUT_WIDTH)
 
 
 GUICtrlCreateLabel("Class", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
