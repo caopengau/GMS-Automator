@@ -44,7 +44,7 @@ GUICtrlSetTip(-1, "More strokes will ensure the skill to go off at the cost of h
 Local $UIKeySpamN = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDTH, $R2, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Interval: (in milliseconds)", $LEFT_MARGIN, $R3, $LABEL_WIDTH)
-GUICtrlSetTip(-1, "Longer interval will simulate better human reaction time at the cost of skill/command delay\n 5-50 is recommanded")
+GUICtrlSetTip(-1, "Longer interval will simulate better human reaction time at the cost of skill/command delay. Reduce if you want faster action")
 Local $UIKeySpamSleep = GUICtrlCreateInput("11",  $RIGHT_MARGIN - $INPUT_WIDTH, $R3, $INPUT_WIDTH)
 
 GUICtrlCreateLabel("Key-Stroke Variation: (natural number)", $LEFT_MARGIN, $R4, $LABEL_WIDTH)
@@ -60,14 +60,14 @@ Local $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDT
 
 GUICtrlCreateLabel("Feedback", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "Report what skill(button) is it doing right now")
-Global $UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH -  $INPUT_WIDTH, $R5, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+$UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH -  $INPUT_WIDTH, $R5 - 5, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
 
 GUICtrlCreateLabel("Pet Food key: ", $LEFT_MARGIN, $R6, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "key for pet food (default F5)")
-Global $UIPetFood = GUICtrlCreateInput("F5",  $RIGHT_MARGIN - $INPUT_WIDTH, $R6, $INPUT_WIDTH)
+$UIPetFood = GUICtrlCreateInput("F5",  $RIGHT_MARGIN - $INPUT_WIDTH, $R6, $INPUT_WIDTH)
 
-$buttonText = "Go(F9)"
-Global $PauseButton = GUICtrlCreateButton($buttonText, $UI_WIDTH - $BUTTON_WIDTH, $UI_HEIGHT - $BUTTON_HEIGHT, $BUTTON_WIDTH, $BUTTON_HEIGHT)
+
+$PauseButton = GUICtrlCreateButton("Go(F9)", $UI_WIDTH - $BUTTON_WIDTH, $UI_HEIGHT - $BUTTON_HEIGHT, $BUTTON_WIDTH, $BUTTON_HEIGHT)
 GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
 GUICtrlSetOnEvent($PauseButton, "Pause")
 
@@ -94,13 +94,13 @@ Global $feedBackString
 Func Pause()
     $isPaused = not $isPaused
     If($isPaused) Then
-        $buttonText = "Go(F9)"
         GUICtrlSetBkColor($PauseButton, $COLOR_GREEN)
+        GUICtrlSetData($PauseButton, "Go(F9)")
     Else
-        $buttonText = "Stop(F9)"
         GUICtrlSetBkColor($PauseButton, $COLOR_RED)
+        GUICtrlSetData($PauseButton,  "Stop(F9)")
     EndIf
-    GUICtrlSetData($PauseButton, $buttonText)
+   
 
     $KeySpamN = GUICtrlRead($UIKeySpamN)
     $KeySpamSleep = GUICtrlRead($UIKeySpamSleep)
