@@ -9,7 +9,7 @@ Arrange keybinding in game as such
     SpikeRoyale     - y
     GustDive        - e
     Stunning Strike - f
-    BuffKey         - q	; use macroskill, put 3 buff there. this combo buff has 4 min interval and cast 4 seconds cast time, on q
+    BuffKey         - a	; use macroskill, put 3 buff there. this combo buff has 4 min interval and cast 4 seconds cast time, on q
 
     put the other skill with cooldown(eg. Spirit of Elluel, Decent HS, SharpEye...) on these keys decreasing priorty, at least empty these, by default the automator will spam these keys
     at fix cycles

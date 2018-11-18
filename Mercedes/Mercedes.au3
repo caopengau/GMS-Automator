@@ -19,7 +19,7 @@ Global $N3_Cycle = 3
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; mercedes UI
+; Mercedes UI
 
 ; UI constants
 $R_3 = $UI_HEIGHT - 20
