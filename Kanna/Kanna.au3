@@ -2,7 +2,7 @@
 #include "..\Utility.au3"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; key skill variable
+; key skill variable and initial setting to be GUIised
 $BasicHauntKey = "f"
 $EtherPulseSKey = "v"
 $GoblinFootKey = "h"
@@ -22,6 +22,9 @@ $BuffKey = "q"	; this buff has 4 min interval and cast w8 time
 
 $NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,a,w,s,ALT,F1,F2
 
+$xOryTeleport = True
+$startBuff = True
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; skill cooldown tracker
 Global $Cycle3s = TimerInit()	; 3s cd tracker
@@ -36,27 +39,47 @@ Global $Cycle240Buff = TimerInit()
 ; kanna UI
 ; UI constants
 
-$R_3 = $UI_HEIGHT - 20
+$R_1 = $UI_HEIGHT - 20
 $R_2 = $UI_HEIGHT - 40
-$R_1 = $UI_HEIGHT - 80
+$R_3 = $UI_HEIGHT - 80
+$R_4 = $UI_HEIGHT - 110
 
+Global $SettingButton = GUICtrlCreateButton("Setting", $LEFT_MARGIN, $R_4, 70, 20)
+GUICtrlSetOnEvent($SettingButton, "Setting")
 
-GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, $R_1, $LABEL_WIDTH - 100)
+GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, $R_3, $LABEL_WIDTH - 100)
 GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
-Global $UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, $R_1, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+Global $UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, $R_3, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
 
 Local $idRadio1 = GUICtrlCreateRadio("Triple Haunt Teleport", 10, $R_2, 120, 20)
 GUICtrlSetTip(-1, "For basic kanna")
-Local $idRadio2 = GUICtrlCreateRadio("Corral Teleport", 10, $R_3, 120, 20)
+Local $idRadio2 = GUICtrlCreateRadio("Corral Teleport", 10, $R_1, 120, 20)
 GUICtrlSetTip(-1, "For strong kanna, coupled well with aggressive")
 GUICtrlSetState($idRadio1, $GUI_CHECKED)
 
-$xOryTeleport = True
-Global $startBuff = True
+
+
+Global $Kanna_Setting_GUI = 9999
+
+
+; If pause button pressed sleep in this loop
+Func Setting()
+	GUICtrlSetState($SettingButton, $GUI_DISABLE)
+
+	$Kanna_Setting_GUI = GUICreate("Kanna setting", 200, 200, 350, 350)
+	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
+	Local $idButton3 = GUICtrlCreateButton("MsgBox 2", 10, 10, 80, 30)
+	GUICtrlSetOnEvent(-1, "On_Button3")
+	GUISetState()
+EndFunc
 
 ; main loop for kanna
 While 1
-	CheckPause()
+	
+	While $isPaused
+		Sleep(100)
+	WEnd
+
 	$BeAggressive = _IsChecked($UIAggressive)
 	$xOryTeleport = (BitAND(GUICtrlRead($idRadio1), $GUI_CHECKED) = $GUI_CHECKED)
 
@@ -292,3 +315,12 @@ Func Grandpa()
 	SpamKey($GrandPaKey)
 	Sleep(500)
 EndFunc
+
+Func On_Setting_Close()
+	GUIDelete($Kanna_Setting_GUI)
+	GUICtrlSetState($SettingButton, $GUI_ENABLE)
+EndFunc   ;==>On_Close_Secondary
+
+Func On_Button3()
+	MsgBox($MB_OK, "MsgBox 2", "Test from Gui 2")
+EndFunc   ;==>On_Button3

@@ -58,13 +58,13 @@ Local $UIKeySpamVariation = GUICtrlCreateInput("1",  $RIGHT_MARGIN - $INPUT_WIDT
 ;GUICtrlSetData($UIClass, "Kanna|PersonalTrainer", "-")
 
 
-GUICtrlCreateLabel("Feedback", $LEFT_MARGIN, $R6, $LABEL_WIDTH)
+GUICtrlCreateLabel("Feedback", $LEFT_MARGIN, $R5, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "Report what skill(button) is it doing right now")
-Global $UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH -  $INPUT_WIDTH, $R6, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+Global $UIFeedBack = GUICtrlCreateCheckbox("", $RIGHT_MARGIN - $INPUT_WIDTH -  $INPUT_WIDTH, $R5, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
 
-GUICtrlCreateLabel("Pet Food key: ", $LEFT_MARGIN, $R7, $LABEL_WIDTH)
+GUICtrlCreateLabel("Pet Food key: ", $LEFT_MARGIN, $R6, $LABEL_WIDTH)
 GUICtrlSetTip(-1, "key for pet food (default F5)")
-Global $UIPetFood = GUICtrlCreateInput("F5",  $RIGHT_MARGIN - $INPUT_WIDTH, $R7, $INPUT_WIDTH)
+Global $UIPetFood = GUICtrlCreateInput("F5",  $RIGHT_MARGIN - $INPUT_WIDTH, $R6, $INPUT_WIDTH)
 
 $buttonText = "Go(F9)"
 Global $PauseButton = GUICtrlCreateButton($buttonText, $UI_WIDTH - $BUTTON_WIDTH, $UI_HEIGHT - $BUTTON_HEIGHT, $BUTTON_WIDTH, $BUTTON_HEIGHT)

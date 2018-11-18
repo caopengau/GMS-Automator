@@ -1,39 +1,48 @@
-#include <StaticConstants.au3>
 #include <GUIConstantsEx.au3>
-#include <WindowsConstants.au3>
-#include <GuiButton.au3>
+#include <MsgBoxConstants.au3>
 
 Opt("GUIOnEventMode", 1)
-$random_numbers = GUICreate("Random numbers", 351, 171, -1, -1, -1, -1)
-GUISetOnEvent($GUI_EVENT_CLOSE, "close")
-$lavel_number = GUICtrlCreateLabel("", 117, 36, 98, 26, BitOR($SS_CENTER, $SS_CENTERIMAGE), $WS_EX_STATICEDGE)
-GUICtrlSetBkColor(-1, "0xFFFFFF")
-$start = GUICtrlCreateButton("Start", 34, 95, 100, 30, -1, -1)
-GUICtrlSetOnEvent(-1, "start")
-$stop = GUICtrlCreateButton("Pause", 182, 95, 100, 30, -1, -1)
-GUICtrlSetOnEvent(-1, "pause")
-$exit = GUICtrlCreateButton("Exit", 112, 136, 100, 30, -1, -1)
-GUICtrlSetOnEvent(-1, "close")
-GUISetState(@SW_SHOW)
-Global $OptChoosen = 0
+
+Global $g_hGUI2, $g_idButton2 ; Predeclare these variables
+
+Local $hGUI1 = GUICreate("Gui 1", 200, 200, 100, 100)
+GUISetOnEvent($GUI_EVENT_CLOSE, "On_Close_Main") ; Run this function when the main GUI [X] is clicked
+Local $idButton1 = GUICtrlCreateButton("Msgbox 1", 10, 10, 80, 30)
+GUICtrlSetOnEvent(-1, "On_Button1")
+Local $g_idButton2 = GUICtrlCreateButton("Show Gui 2", 10, 60, 80, 30)
+GUICtrlSetOnEvent(-1, "On_Button2")
+GUISetState()
 
 While 1
-    Sleep(50)
-    While $OptChoosen = 1
-        Sleep(100)
-        Local $a = Random(1, 10, 1)
-        GUICtrlSetData($lavel_number, $a)
-    WEnd
+    Sleep(10)
 WEnd
 
-Func start()
-    $OptChoosen = 1
-EndFunc   ;==>start
+Func gui2()
+	Local $g_hGUI2 = GUICreate("Gui 2", 200, 200, 350, 350)
+	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Close_Secondary") ; Run this function when the secondary GUI [X] is clicked
+	Local $idButton3 = GUICtrlCreateButton("MsgBox 2", 10, 10, 80, 30)
+	GUICtrlSetOnEvent(-1, "On_Button3")
+	GUISetState()
+EndFunc   ;==>gui2
 
-Func pause()
-    $OptChoosen = 0
-EndFunc   ;==>pause
+Func On_Close_Main()
+	Exit
+EndFunc   ;==>On_Close_Main
 
-Func close()
-    Exit
-EndFunc   ;==>c
+Func On_Close_Secondary()
+	GUIDelete($g_hGUI2)
+	GUICtrlSetState($g_idButton2, $GUI_ENABLE)
+EndFunc   ;==>On_Close_Secondary
+
+Func On_Button1()
+	MsgBox($MB_OK, "MsgBox 1", "Test from Gui 1")
+EndFunc   ;==>On_Button1
+
+Func On_Button2()
+	GUICtrlSetState($g_idButton2, $GUI_DISABLE)
+	gui2()
+EndFunc   ;==>On_Button2
+
+Func On_Button3()
+	MsgBox($MB_OK, "MsgBox 2", "Test from Gui 2")
+EndFunc   ;==>On_Button3
