@@ -1,42 +1,43 @@
 #include "..\Utility.au3"
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; key skill variable and initial setting
 Global $StartTime = TimerInit()
 Global $TotalRunTime = 0
 Global $left = False
-
 Global $Cycle = TimerInit() + 40000
 Global $Timer = 0
 Global $MapleWarriorBuffTimer = 15000
 
+Global $startBuff = True
+Global $Combo2 = False
+Global $Combo3 = False
+Global $N1_Cycle = 6
+Global $N3_Cycle = 3
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; mercedes UI
-; UI constants
 
+; UI constants
 $R_3 = $UI_HEIGHT - 20
 $R_2 = $UI_HEIGHT - 40
 $R_1 = $UI_HEIGHT - 60
 
+; Mercedes setting ui handler
+Global $Mercedes_Setting_GUI = 9999
+Global $idRadio1, $idRadio2, $idRadio3, $UI1_N_Cycle, $UI3_N_Cycle	; settings handlers
 
-Local $idRadio1 = GUICtrlCreateRadio("Lightning flatmap", 10, $R_1, 120, 20)
-GUICtrlSetTip(-1, "For _ shape flat map")
-Local $idRadio2 = GUICtrlCreateRadio("PlatForm3", 10, $R_2, 120, 20)
-GUICtrlSetTip(-1, "For -_- shape map")
-Local $idRadio3 = GUICtrlCreateRadio("TwoParallel", 10, $R_3, 120, 20)
-GUICtrlSetTip(-1, "For = shape map")
-GUICtrlSetState($idRadio3, $GUI_CHECKED)
+Global $SettingButton = GUICtrlCreateButton("Setting", $LEFT_MARGIN, $UI_HEIGHT - 25, 80, 20)	; button to trigger setting ui
+GUICtrlSetTip(-1, "Strategy Setting (Key Binding and skill selection coming next patch)")
+GUICtrlSetOnEvent($SettingButton, "Setting")
 
-Global $Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
-Global $Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
-
-$startBuff = True
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; main loop for mercedes
 While 1
 	CheckPause()
-
-	$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
-	$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
 
 	; running training automator strategy/skill combo
 	ToolTip("Running mercedes automator", 0, 0)
@@ -51,11 +52,11 @@ While 1
 	MasterBuff()
 
 	If $Combo3 Then
-		TwoParallel(3)
+		TwoParallel($N3_Cycle)
 	ElseIf $Combo2 Then
 		PlatForm3()
 	Else
-		LightingClear(6)
+		LightingClear($N1_Cycle)
 	EndIf
 WEnd
 
@@ -99,7 +100,7 @@ Func Regular3MinBuff()
 		$feedBackString = "Regular3MinBuff"
 	EndIf
 	SpamKey("a")
-	Sleep(4000)
+	Sleep(3000)
 	FeedPet()
 
 	$MapleWarriorBuffTimer += 3
@@ -417,10 +418,8 @@ EndFunc
 ;; good for flatmap mobbing
 Func LightingClear($Times)
 	$Count = 0
-
-
 	DirectionDown($Left)
-
+	Sleep(50)
 	While $Count<$Times
 		CheckPause()
 		LightningEdge($left)
@@ -461,4 +460,57 @@ Func CheckPause()
 	While $isPaused
 		Sleep(100)
 	WEnd
+EndFunc
+
+
+Func On_Setting_Close()
+	GUIDelete($Mercedes_Setting_GUI)
+	GUICtrlSetState($SettingButton, $GUI_ENABLE)
+EndFunc   ;==>On_Close_Secondary
+
+Func Save_Setting()
+	
+	$Combo3 = (BitAND(GUICtrlRead($idRadio3), $GUI_CHECKED) = $GUI_CHECKED)
+	$Combo2 = (BitAND(GUICtrlRead($idRadio2), $GUI_CHECKED) = $GUI_CHECKED)
+	$N1_Cycle = GUICtrlRead($UI1_N_Cycle)
+	$N3_Cycle = GUICtrlRead($UI3_N_Cycle)
+
+
+	GUIDelete($Mercedes_Setting_GUI)
+	GUICtrlSetState($SettingButton, $GUI_ENABLE)
+EndFunc   ;==>On_Button3
+
+; If pause button pressed sleep in this loop
+Func Setting()
+	GUICtrlSetState($SettingButton, $GUI_DISABLE)
+
+	$Mercedes_Setting_GUI = GUICreate("Mercedes setting", 200, 200, 350, 350)
+	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
+	Local $idButton3 = GUICtrlCreateButton("Save", 10, 10, 80, 30)
+	GUICtrlSetOnEvent(-1, "Save_Setting")
+
+
+	$idRadio1 = GUICtrlCreateRadio("Lightning Clear", 10, 45, 100, 20)
+	GUICtrlSetTip(-1, "For _ shape flat map")
+	$UI1_N_Cycle = GUICtrlCreateInput($N1_Cycle,  120, 45, $INPUT_WIDTH/2)
+
+	
+	$idRadio2 = GUICtrlCreateRadio("PlatForm-_-", 10, 65, 100, 20)
+	GUICtrlSetTip(-1, "For -_- shape map")
+
+
+	$idRadio3 = GUICtrlCreateRadio("TwoParallel", 10, 85, 100, 20)
+	GUICtrlSetTip(-1, "For = shape map")
+	$UI3_N_Cycle = GUICtrlCreateInput($N3_Cycle,  120, 85, $INPUT_WIDTH/2)
+
+	; Show the current selection
+	If $Combo3 Then
+		GUICtrlSetState($idRadio3, $GUI_CHECKED)
+	ElseIf $Combo2 Then
+		GUICtrlSetState($idRadio2, $GUI_CHECKED)
+	Else
+		GUICtrlSetState($idRadio1, $GUI_CHECKED)
+	EndIf
+
+	GUISetState()
 EndFunc

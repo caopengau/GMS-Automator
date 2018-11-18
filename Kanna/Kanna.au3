@@ -45,36 +45,6 @@ GUICtrlSetOnEvent($SettingButton, "Setting")
 Global $UIAggressive, $idRadio1, $idRadio2	; settings handlers
 
 
-; If pause button pressed sleep in this loop
-Func Setting()
-	GUICtrlSetState($SettingButton, $GUI_DISABLE)
-
-	$Kanna_Setting_GUI = GUICreate("Kanna setting", 200, 200, 350, 350)
-	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
-	Local $idButton3 = GUICtrlCreateButton("Save", 10, 10, 80, 30)
-	GUICtrlSetOnEvent(-1, "Save_Setting")
-
-
-	GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, 45, $LABEL_WIDTH - 100)
-	GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
-	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, 30, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
-	If $BeAggressive Then
-		GUICtrlSetState(-1, $GUI_CHECKED)
-	EndIf
-
-
-	$idRadio1 = GUICtrlCreateRadio("Triple Haunt Teleport", 10, 70, 120, 20)
-	GUICtrlSetTip(-1, "For basic kanna")
-	$idRadio2 = GUICtrlCreateRadio("Corral Teleport", 10, 90, 120, 20)
-	GUICtrlSetTip(-1, "For mana-rich aggressive kanna, high hp regeneration and mana recovery needed to support this mode")
-	If $TrippleHauntOrCoral Then
-		GUICtrlSetState($idRadio1, $GUI_CHECKED)
-	Else
-		GUICtrlSetState($idRadio2, $GUI_CHECKED)
-	EndIf
-
-	GUISetState()
-EndFunc
 
 ; main loop for kanna
 While 1
@@ -330,3 +300,34 @@ Func Save_Setting()
 	GUIDelete($Kanna_Setting_GUI)
 	GUICtrlSetState($SettingButton, $GUI_ENABLE)
 EndFunc   ;==>On_Button3
+
+
+Func Setting()
+	GUICtrlSetState($SettingButton, $GUI_DISABLE)
+
+	$Kanna_Setting_GUI = GUICreate("Kanna setting", 200, 200, 350, 350)
+	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
+	Local $idButton3 = GUICtrlCreateButton("Save", 10, 10, 80, 30)
+	GUICtrlSetOnEvent(-1, "Save_Setting")
+
+
+	GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, 45, $LABEL_WIDTH - 100)
+	GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
+	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, 30, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+	If $BeAggressive Then
+		GUICtrlSetState(-1, $GUI_CHECKED)
+	EndIf
+
+
+	$idRadio1 = GUICtrlCreateRadio("Triple Haunt Teleport", 10, 70, 120, 20)
+	GUICtrlSetTip(-1, "For basic kanna")
+	$idRadio2 = GUICtrlCreateRadio("Corral Teleport", 10, 90, 120, 20)
+	GUICtrlSetTip(-1, "For mana-rich aggressive kanna, high hp regeneration and mana recovery needed to support this mode")
+	If $TrippleHauntOrCoral Then
+		GUICtrlSetState($idRadio1, $GUI_CHECKED)
+	Else
+		GUICtrlSetState($idRadio2, $GUI_CHECKED)
+	EndIf
+
+	GUISetState()
+EndFunc
