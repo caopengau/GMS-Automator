@@ -2,6 +2,10 @@
 
 ; basic key stroke simulator
 Func SpamKey($key)
+	If $key == "" Then
+		Return
+	EndIf
+
 	If $FeedBack Then
 		FeedBackTip()
 	EndIf

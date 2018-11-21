@@ -5,25 +5,20 @@
 ; key skill variable and initial setting
 $BasicHauntKey = "f"
 $EtherPulseSKey = "v"
-$GoblinFootKey = "h"
 $KishinKey = "LSHIFT"
+$BuffKey = "q"	; this buff has 4 min interval and cast w8 time
+$GoblinFootKey = "h"
 $OrochiKey = "c"
 $NimbusCurseKey = "y"
 $CorralKey = "g"
 $NineTailKey = "z"
 $GrandPaKey = "e"
-$FeedPetKey = "F5"
 $ManaBalancekey = "2"
 
-
 $BeAggressive = False ; use ManaBalance
-
-$BuffKey = "q"	; this buff has 4 min interval and cast w8 time
-
+$FeedPetKey = "F5"
 $NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,a,w,s,ALT,F1,F2
-
 $TrippleHauntOrCoral = True
-
 $startBuff = True	; do we buff character as first action when the trainer runs
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,9 +37,11 @@ Global $SettingButton = GUICtrlCreateButton("Setting", $LEFT_MARGIN, $UI_HEIGHT 
 GUICtrlSetTip(-1, "Strategy Setting (Key Binding and skill selection coming next patch)")
 GUICtrlSetOnEvent($SettingButton, "Setting")
 
-Global $UIAggressive, $idRadio1, $idRadio2	; settings handlers
+Global $UIAggressive, $idRadio1, $idRadio2 	; settings handlers
 
-
+; key binding
+Global $UIBasicHauntKey, $UIEtherPulseSKey, $UIKishinKey, $UIBuffKey
+Global $UIGoblinFootKey, $UIOrochiKey, $UINimbusCurseKey, $UICorralKey, $UINineTailKey, $UIGrandPaKey, $UIManaBalancekey
 
 ; main loop for kanna
 While 1
@@ -288,6 +285,7 @@ Func Grandpa()
 EndFunc
 
 Func On_Setting_Close()
+
 	GUIDelete($Kanna_Setting_GUI)
 	GUICtrlSetState($SettingButton, $GUI_ENABLE)
 EndFunc   ;==>On_Close_Secondary
@@ -296,27 +294,68 @@ Func Save_Setting()
 	
 	$BeAggressive = _IsChecked($UIAggressive)
 	$TrippleHauntOrCoral = (BitAND(GUICtrlRead($idRadio1), $GUI_CHECKED) = $GUI_CHECKED)
-	
+
+	$BasicHauntKey = GUICtrlRead($UIBasicHauntKey)
+	$EtherPulseSKey = GUICtrlRead($UIEtherPulseSKey)
+	$KishinKey = GUICtrlRead($UIKishinKey)
+	$BuffKey = GUICtrlRead($UIBuffKey)
+	$GoblinFootKey = GUICtrlRead($UIGoblinFootKey)
+	$OrochiKey = GUICtrlRead($UIOrochiKey)
+	$CorralKey = GUICtrlRead($UICorralKey)
+	$NineTailKey = GUICtrlRead($UINineTailKey)
+	$GrandPaKey = GUICtrlRead($UIGrandPaKey)
+	$ManaBalancekey = GUICtrlRead($UIManaBalancekey)
+
+
 	GUIDelete($Kanna_Setting_GUI)
 	GUICtrlSetState($SettingButton, $GUI_ENABLE)
 EndFunc   ;==>On_Button3
 
+Func Default_Setting()
+	
+	$BasicHauntKey = "f"
+	$EtherPulseSKey = "v"
+	$KishinKey = "LSHIFT"
+	$BuffKey = "q"	; this buff has 4 min interval and cast w8 time
+	$GoblinFootKey = "h"
+	$OrochiKey = "c"
+	$NimbusCurseKey = "y"
+	$CorralKey = "g"
+	$NineTailKey = "z"
+	$GrandPaKey = "e"
+	$ManaBalancekey = "2"
+	$BeAggressive = False ; use ManaBalance
+	
+	$FeedPetKey = "F5"
+	$NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,a,w,s,ALT,F1,F2
+	$TrippleHauntOrCoral = True
+	$startBuff = True	; do we buff character as first action when the trainer runs
+
+	GUIDelete($Kanna_Setting_GUI)
+	GUICtrlSetState($SettingButton, $GUI_ENABLE)
+
+	Setting()
+EndFunc   ;==>On_Button3
 
 Func Setting()
 	GUICtrlSetState($SettingButton, $GUI_DISABLE)
 
-	$Kanna_Setting_GUI = GUICreate("Kanna setting", 200, 200, 350, 350)
+	$Kanna_Setting_GUI = GUICreate("Kanna setting", 300, 700, 350, 350)
 	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
+
 	Local $idButton3 = GUICtrlCreateButton("Save", 10, 10, 80, 30)
 	GUICtrlSetOnEvent(-1, "Save_Setting")
 
+	Local $idButton4 = GUICtrlCreateButton("Default", 150, 10, 80, 30)
+	GUICtrlSetOnEvent(-1, "Default_Setting")
 
 	GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, 45, $LABEL_WIDTH - 100)
 	GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
-	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 100, 30, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 150, 30, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
 	If $BeAggressive Then
 		GUICtrlSetState(-1, $GUI_CHECKED)
 	EndIf
+
 
 
 	$idRadio1 = GUICtrlCreateRadio("Triple Haunt Teleport", 10, 70, 120, 20)
@@ -329,5 +368,71 @@ Func Setting()
 		GUICtrlSetState($idRadio2, $GUI_CHECKED)
 	EndIf
 
+	KeybindUI()
+
+
 	GUISetState()
+EndFunc
+
+
+Func KeybindUI()
+
+	; key skill variable and initial setting
+	GUICtrlCreateLabel("*BasicHauntKey", $LEFT_MARGIN, 110, $LABEL_WIDTH - 100)
+	GUICtrlSetTip(-1, "You need at least have this skill")
+	$UIBasicHauntKey = GUICtrlCreateInput($BasicHauntKey,  $LEFT_MARGIN + 150, 110, $INPUT_WIDTH/2)
+
+	GUICtrlCreateLabel("*EtherPulseSKey", $LEFT_MARGIN, 130, $LABEL_WIDTH - 100)
+	GUICtrlSetTip(-1, "You need at least have this skill")
+	$UIEtherPulseSKey = GUICtrlCreateInput($EtherPulseSKey,  $LEFT_MARGIN + 150, 130, $INPUT_WIDTH/2)
+
+	
+	GUICtrlCreateLabel("BuffKey", $LEFT_MARGIN, 150, $LABEL_WIDTH - 100)
+	GUICtrlSetTip(-1, "skill panel button right,macro>, to put 3 buffs on this key")
+	$UIBuffKey = GUICtrlCreateInput($BuffKey,  $LEFT_MARGIN + 150, 150, $INPUT_WIDTH/2)
+
+	GUICtrlCreateLabel("KishinKey", $LEFT_MARGIN, 170, $LABEL_WIDTH - 100)
+	JustATip()
+	$UIKishinKey = GUICtrlCreateInput($KishinKey,  $LEFT_MARGIN + 150, 170, $INPUT_WIDTH/2)
+	GUICtrlCreateLabel("CorralKey", $LEFT_MARGIN, 190, $LABEL_WIDTH - 100)
+	JustATip()
+	$UICorralKey = GUICtrlCreateInput($CorralKey,  $LEFT_MARGIN + 150, 190, $INPUT_WIDTH/2)
+
+
+
+	GUICtrlCreateLabel("NimbusCurseKey", $LEFT_MARGIN, 210, $LABEL_WIDTH - 100)
+	JustATip()
+	$UINimbusCurseKey = GUICtrlCreateInput($NimbusCurseKey,  $LEFT_MARGIN + 150, 210, $INPUT_WIDTH/2)
+
+
+	GUICtrlCreateLabel("OrochiKey", $LEFT_MARGIN, 230, $LABEL_WIDTH - 100)
+	GUICtrlSetTip(-1, "delete/leave it empty if you don't have the skill")
+	$UIOrochiKey = GUICtrlCreateInput($OrochiKey,  $LEFT_MARGIN + 150, 230, $INPUT_WIDTH/2)
+
+
+	GUICtrlCreateLabel("GoblinFootKey", $LEFT_MARGIN, 250, $LABEL_WIDTH - 100)
+	JustATip()
+	$UIGoblinFootKey = GUICtrlCreateInput($GoblinFootKey,  $LEFT_MARGIN + 150, 250, $INPUT_WIDTH/2)
+	
+	GUICtrlCreateLabel("NineTailKey", $LEFT_MARGIN, 270, $LABEL_WIDTH - 100)
+	JustATip()
+	$UINineTailKey = GUICtrlCreateInput($NineTailKey,  $LEFT_MARGIN + 150, 270, $INPUT_WIDTH/2)
+
+	GUICtrlCreateLabel("GrandPaKey(DemonFury)", $LEFT_MARGIN, 290, $LABEL_WIDTH - 100)
+	JustATip()
+	$UIGrandPaKey = GUICtrlCreateInput($GrandPaKey,  $LEFT_MARGIN + 150, 290, $INPUT_WIDTH/2)
+
+	GUICtrlCreateLabel("ManaBalancekey", $LEFT_MARGIN, 310, $LABEL_WIDTH - 100)
+	JustATip()
+	$UIManaBalancekey = GUICtrlCreateInput($ManaBalancekey,  $LEFT_MARGIN + 150, 310, $INPUT_WIDTH/2)
+
+
+	
+	GUICtrlCreateLabel("NOTE: Leave the following key empty or put skills/buffs with long cd on them", $LEFT_MARGIN, 350, $LABEL_WIDTH, 60)
+	GUICtrlCreateLabel("ALT,w,F1,a,3,4,5,6,7,F2,s", $LEFT_MARGIN, 380, $LABEL_WIDTH)
+	
+EndFunc
+
+Func JustATip()
+	GUICtrlSetTip(-1, "delete/leave it empty if you don't have or don't want to use the skill")
 EndFunc
