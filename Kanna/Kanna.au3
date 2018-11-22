@@ -340,7 +340,7 @@ EndFunc   ;==>On_Button3
 Func Setting()
 	GUICtrlSetState($SettingButton, $GUI_DISABLE)
 
-	$Kanna_Setting_GUI = GUICreate("Kanna setting", 300, 700, 350, 350)
+	$Kanna_Setting_GUI = GUICreate("Kanna setting", 300, 500, 350, 0)
 	GUISetOnEvent($GUI_EVENT_CLOSE, "On_Setting_Close") ; Run this function when the secondary GUI [X] is clicked
 
 	Local $idButton3 = GUICtrlCreateButton("Save", 10, 10, 80, 30)
@@ -351,7 +351,7 @@ Func Setting()
 
 	GUICtrlCreateLabel("Aggressive", $LEFT_MARGIN, 45, $LABEL_WIDTH - 100)
 	GUICtrlSetTip(-1, "Use mana balance to trade HP for mana")
-	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 150, 30, $CHECKBOX_SIZE, $CHECKBOX_SIZE)
+	$UIAggressive = GUICtrlCreateCheckbox("", $LEFT_MARGIN + 150, 40, $CHECKBOX_SIZE -50, $CHECKBOX_SIZE-50)
 	If $BeAggressive Then
 		GUICtrlSetState(-1, $GUI_CHECKED)
 	EndIf
