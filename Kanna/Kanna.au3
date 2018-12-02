@@ -1,66 +1,77 @@
 
 #include "..\Utility.au3"
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; key skill variable and initial setting
-$BasicHauntKey = "f"
-$EtherPulseSKey = "v"
-$KishinKey = "LSHIFT"
-$BuffKey = "q"	; this buff has 4 min interval and cast w8 time
-$GoblinFootKey = "h"
-$OrochiKey = "c"
-$NimbusCurseKey = "y"
-$CorralKey = "g"
-$NineTailKey = "z"
-$GrandPaKey = "e"
-$ManaBalancekey = "2"
+KannaInit()
+KannaUI()
+KannaMain()
 
-$BeAggressive = False ; use ManaBalance
-$FeedPetKey = "F5"
-$NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,a,w,s,ALT,F1,F2
-$TrippleHauntOrCoral = True
-$startBuff = True	; do we buff character as first action when the trainer runs
+Func KannaInit()
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	; key skill variable and initial setting
+	Global $BasicHauntKey = "f"
+	Global $EtherPulseSKey = "v"
+	Global $KishinKey = "LSHIFT"
+	Global $BuffKey = "q"	; this buff has 4 min interval and cast w8 time
+	Global $GoblinFootKey = "h"
+	Global $OrochiKey = "c"
+	Global $NimbusCurseKey = "y"
+	Global $CorralKey = "g"
+	Global $NineTailKey = "z"
+	Global $GrandPaKey = "e"
+	Global $ManaBalancekey = "2"
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; skill cooldown tracker
-$Cycle3s = TimerInit()	; 3s cd tracker
-$Cycle21s = TimerInit()
-$Cycle51s = TimerInit()
-$Cycle75s = TimerInit()
-$Cycle121s = TimerInit()
-$Cycle326s = TimerInit()
-$Cycle240Buff = TimerInit()
+	Global $BeAggressive = False ; use ManaBalance
+	Global $FeedPetKey = "F5"
+	Global $NeedSpamBuff = True	; put any buff/skill with cd time on these keys: 3,4,5,6,7,a,w,s,ALT,F1,F2
+	Global $TrippleHauntOrCoral = True
+	Global $startBuff = True	; do we buff character as first action when the trainer runs
 
-Global $Kanna_Setting_GUI = 9999	; kanna setting ui handler
-Global $SettingButton = GUICtrlCreateButton("Setting", $LEFT_MARGIN, $UI_HEIGHT - 25, 80, 20)	; button to trigger setting ui
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	; skill cooldown tracker
+	Global $Cycle3s = TimerInit()	; 3s cd tracker
+	Global $Cycle21s = TimerInit()
+	Global $Cycle51s = TimerInit()
+	Global $Cycle75s = TimerInit()
+	Global $Cycle121s = TimerInit()
+	Global $Cycle326s = TimerInit()
+	Global $Cycle240Buff = TimerInit()
+EndFunc
 
-GUICtrlSetTip(-1, "Strategy Setting (Key Binding and skill selection coming next patch)")
-GUICtrlSetOnEvent($SettingButton, "Setting")
+Func KannaUI()
 
-Global $UIAggressive, $idRadio1, $idRadio2 	; settings handlers
+	Global $Kanna_Setting_GUI = 9999	; kanna setting ui handler
+	Global $SettingButton = GUICtrlCreateButton("Setting", $LEFT_MARGIN, $UI_HEIGHT - 25, 80, 20)	; button to trigger setting ui
 
-; key binding
-Global $UIBasicHauntKey, $UIEtherPulseSKey, $UIKishinKey, $UIBuffKey
-Global $UIGoblinFootKey, $UIOrochiKey, $UINimbusCurseKey, $UICorralKey, $UINineTailKey, $UIGrandPaKey, $UIManaBalancekey
+	GUICtrlSetTip(-1, "Strategy Setting (Key Binding and skill selection coming next patch)")
+	GUICtrlSetOnEvent($SettingButton, "Setting")
+
+	Global $UIAggressive, $idRadio1, $idRadio2 	; settings handlers
+
+	; key binding
+	Global $UIBasicHauntKey, $UIEtherPulseSKey, $UIKishinKey, $UIBuffKey
+	Global $UIGoblinFootKey, $UIOrochiKey, $UINimbusCurseKey, $UICorralKey, $UINineTailKey, $UIGrandPaKey, $UIManaBalancekey
+
+EndFunc
 
 ; main loop for kanna
-While 1
-	
-	While $isPaused
-		Sleep(100)
+Func KannaMain()
+	While 1
+		
+		While $isPaused
+			Sleep(100)
+		WEnd
+
+
+
+		If ($startBuff) Then
+			$startBuff = False
+			Regular4MinBuff()
+		EndIf
+
+		; training strategy
+		EfficientMobbing()
 	WEnd
-
-
-
-	If ($startBuff) Then
-		$startBuff = False
-		Regular4MinBuff()
-	EndIf
-
-	; training strategy
-	EfficientMobbing()
-WEnd
-
+EndFunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; strategy for kanna

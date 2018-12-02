@@ -1,0 +1,1 @@
+This tutorial series will teach you how to build your own person GMS-automator

@@ -1,0 +1,11 @@
+1. Download and install Autoit
+
+https://www.autoitscript.com/site/autoit/downloads/
+
+2. Have a simple programming editor such as
+    notepad++,              https://notepad-plus-plus.org/download/v7.6.html
+    visual studio code,     https://code.visualstudio.com/
+
+3. This tutorial series assume you have the very basic knowledge of programming
+    concept like variables and functions, "if else" conditional statement and loop
+
