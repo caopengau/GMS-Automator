@@ -29,7 +29,7 @@ While $GMS="Maplestory"
 	Local $hWnd = WinGetHandle("Maplestory", "")
 
 
-	If (Round((TimerDiff($Cycle30s))/1000>30)) Then
+	If (Round((TimerDiff($Cycle30s))/1000>300)) Then
 		Click()
 	EndIf
 
@@ -60,15 +60,15 @@ EndFunc
 Func Click()
 	ToolTip("Clicking",0,0)
 	WinActivate ( $GMS )
-	MouseClick($MOUSE_CLICK_LEFT, 344,288)
-	MouseClick($MOUSE_CLICK_LEFT, 344,288)
+	MouseClick($MOUSE_CLICK_LEFT, 435,347)
+	MouseClick($MOUSE_CLICK_LEFT, 435,347)
 	Send("{ENTER}")
 
 	Sleep(4000)
 
 	WinActivate ( $GMS )
-	MouseClick($MOUSE_CLICK_LEFT, 193, 275)
-	MouseClick($MOUSE_CLICK_LEFT, 193, 275)
+	MouseClick($MOUSE_CLICK_LEFT, 222, 330)
+	MouseClick($MOUSE_CLICK_LEFT, 222, 330)
 
 	$Cycle30s = TimerInit()
 EndFunc
